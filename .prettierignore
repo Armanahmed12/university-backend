@@ -1,0 +1,11 @@
+# Ignore compiled output
+dist
+
+# Ignore dependency directory
+node_modules
+
+# Ignore configuration files (if Prettier is accidentally finding them)
+*.config.js
+*.config.mjs
+.eslintrc.js
+.prettierrc.js

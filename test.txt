@@ -1,0 +1,12 @@
+jwtTime 
+
+after login = jwtTime
+
+3. after the change of pasw = jwtIssueAt < pswChangeAt
+
+if password changeAt exist pswdChangeAt > jwtIssueDate 
+
+if(user.changeAt && pswdChangeAt < jwtIssuedDate){
+    
+     you log in again to generate new token
+}
