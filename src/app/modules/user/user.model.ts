@@ -6,6 +6,7 @@ import { config } from '../../config/index.js';
 const userSchema = new Schema<IUser>(
   {
     id: { type: String, unique: true, required: true },
+    email: { type: String, unique: true, required: true },
     password: { type: String, required: true, select: 0 },
     needsPasswordChange: { type: Boolean, default: true },
     passwordChangedAt: { type: Date },

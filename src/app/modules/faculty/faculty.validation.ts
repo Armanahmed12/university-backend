@@ -22,7 +22,8 @@ export const createFacultyValidationSchema = z.object({
     password: z
       .string()
       .min(6, { message: 'Password must be at least 6 characters long' })
-      .max(20, { message: 'Password cannot be more than 20 characters' }),
+      .max(20, { message: 'Password cannot be more than 20 characters' })
+      .optional(),
 
     faculty: z.object({
       designation: z.string().min(1, { message: 'Designation is required' }),

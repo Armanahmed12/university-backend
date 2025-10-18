@@ -2,29 +2,21 @@ import { NextFunction, Request, Response } from 'express';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../errors/AppError.js';
 import httpStatus from 'http-status';
-import jwt from 'jsonwebtoken';
 import { config } from '../config/index.js';
 import { User } from '../modules/user/user.model.js';
 import { MyJwtPayload } from '../interface/index.js';
 import { TUserRole } from '../modules/user/user.interface.js';
+import { verifyToken } from '../modules/auth/auth.utils.js';
 
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
-    const token2 = (token as string).split(' ');
-    console.log(token2, "-------------2----------------->", token) 
     if (!token) {
-      throw new AppError(
-        httpStatus.UNAUTHORIZED,
-        'You are not authorized (token)'
-      );
+      throw new AppError(httpStatus.UNAUTHORIZED, 'No token Found!');
     }
 
     //   check if the token is valid
-    const decoded = jwt.verify(
-      token,
-      config.jwt_access_secret as string
-    ) as MyJwtPayload;
+    const decoded = verifyToken(token, config.jwt_access_secret as string);
 
     const { role, userId, iat } = decoded;
 

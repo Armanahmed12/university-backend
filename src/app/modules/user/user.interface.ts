@@ -4,6 +4,7 @@ import { USER_ROLE } from './user.constant.js';
 export interface IUser {
   _id: string;
   id: string;
+  email: string;
   password: string;
   needsPasswordChange: boolean;
   passwordChangedAt?: Date;
