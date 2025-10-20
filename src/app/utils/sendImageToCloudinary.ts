@@ -3,6 +3,7 @@ import { config } from '../config/index.js';
 import multer from 'multer';
 import fs from 'fs';
 
+console.log('Hello form multer');
 cloudinary.config({
   cloud_name: config.cloudinary_cloud_name as string,
   api_key: config.cloudinary_api_key as string,
@@ -19,6 +20,7 @@ export const sendImageToCloudinary = (
       { public_id: imageName },
       (error, result) => {
         if (error) {
+          console.log(error);
           reject(error);
         } else if (result) {
           resolve(result); // ✅ result is not undefined here

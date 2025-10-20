@@ -47,9 +47,9 @@ const createStudentIntoDB = async (
   try {
     session.startTransaction();
 
-    const imageName = `${userData.id}${payload?.name.firstName}`;
+    const imageName = `${userData?.id}${payload?.name.firstName}`;
     const path = file?.path;
-
+    console.log(path, imageName);
     const { secure_url } = await sendImageToCloudinary(imageName, path);
     // Step 1️⃣ Create User
     const newUser = await User.create([userData], { session });
@@ -67,7 +67,7 @@ const createStudentIntoDB = async (
     if (!newStudent[0]) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create student');
     }
-
+    console.log('new created student', newStudent);
     // Step 3️⃣ Commit transaction
     await session.commitTransaction();
     console.log('✅ Transaction successful!');
@@ -88,7 +88,7 @@ const createFacultyIntoDB = async (
 ) => {
   // create a user object
   const userData: Partial<IUser> = {};
-
+  console.log('from createFaculty bro');
   //if password is not given , use deafult password
   userData.password = password || (config.default_password as string);
 
@@ -111,10 +111,12 @@ const createFacultyIntoDB = async (
     //set  generated id
     userData.id = await generateFacultyId();
 
-    const imageName = `${userData._id}${payload?.name?.firstName}`;
+    const imageName = `${userData.id}${payload?.name?.firstName}`;
     const path = file?.path;
+    console.log('path & imageName from f', imageName, path);
     // send img to cloudinary
     const { secure_url } = await sendImageToCloudinary(imageName, path);
+
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session }); // array
 
@@ -134,7 +136,7 @@ const createFacultyIntoDB = async (
     if (!newFaculty[0]) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create faculty');
     }
-
+    console.log('created Faculty ', newFaculty);
     await session.commitTransaction();
     await session.endSession();
 

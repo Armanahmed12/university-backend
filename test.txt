@@ -1,12 +1,20 @@
-jwtTime 
-
-after login = jwtTime
-
-3. after the change of pasw = jwtIssueAt < pswChangeAt
-
-if password changeAt exist pswdChangeAt > jwtIssueDate 
-
-if(user.changeAt && pswdChangeAt < jwtIssuedDate){
-    
-     you log in again to generate new token
+{
+    "password": "SecurePass123",
+    "faculty": {
+      "designation": "Lecturer",
+      "name": {
+        "firstName": "Arman",
+        "middleName": "Ahmed",
+        "lastName": "Khan"
+      },
+      "gender": "male",
+      "dateOfBirth": "1995-07-21",
+      "email": "ffeeeeeeef@example.com",
+      "contactNo": "01712345678",
+      "emergencyContactNo": "01898765432",
+      "bloodGroup": "A+",
+      "presentAddress": "Dhaka, Bangladesh",
+      "permanentAddress": "Rajshahi, Bangladesh",
+      "academicDepartment": "68e251a0d13c3a93f50106f9"
+    }
 }
