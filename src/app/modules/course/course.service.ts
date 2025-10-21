@@ -6,7 +6,7 @@ import {
   TCourseFaculty,
   TPreRequisiteCourses,
 } from './course.interface.js';
-import { Course, CourseFaulty } from './course.model.js';
+import { Course, CourseFaculty } from './course.model.js';
 import AppError from '../../errors/AppError.js';
 import httpStatus from 'http-status';
 
@@ -146,7 +146,7 @@ const assignFacultiesWithCourseIntoDB = async (
   id: string,
   payload: Partial<TCourseFaculty>
 ) => {
-  const result = await CourseFaulty.findByIdAndUpdate(
+  const result = await CourseFaculty.findByIdAndUpdate(
     id,
     {
       course: id,
@@ -165,7 +165,7 @@ const removeFacultiesFromCourseFromDB = async (
   id: string,
   payload: Partial<TCourseFaculty>
 ) => {
-  const result = await CourseFaulty.findByIdAndUpdate(
+  const result = await CourseFaculty.findByIdAndUpdate(
     id,
     {
       $pull: { faculties: { $in: payload } },
@@ -173,6 +173,13 @@ const removeFacultiesFromCourseFromDB = async (
     {
       new: true,
     }
+  );
+  return result;
+};
+
+const getFacultiesWithCourseFromDB = async (courseId: string) => {
+  const result = await CourseFaculty.findOne({ course: courseId }).populate(
+    'faculties'
   );
   return result;
 };
@@ -185,4 +192,5 @@ export const CourseServices = {
   deleteCourseFromDB,
   assignFacultiesWithCourseIntoDB,
   updateCourseIntoDB,
+  getFacultiesWithCourseFromDB,
 };

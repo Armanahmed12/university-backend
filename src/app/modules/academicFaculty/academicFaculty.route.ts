@@ -3,11 +3,13 @@ import validateRequest from '../../middlewares/validateRequest.js';
 import { AcademicFacultyValidations } from './academicFaculty.validation.js';
 import { AcademicFacultyControllers } from './academicFaculty.controller.js';
 import auth from '../../middlewares/auth.js';
+import { USER_ROLE } from '../user/user.constant.js';
 
 const router = Router();
 
 router.post(
   '/create-academic-faculty',
+  auth(USER_ROLE.superAdmin),
   validateRequest(
     AcademicFacultyValidations.createAcademicFacultyValidationSchema
   ),

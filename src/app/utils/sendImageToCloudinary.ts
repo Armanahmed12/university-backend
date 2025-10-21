@@ -1,9 +1,8 @@
-import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 import { config } from '../config/index.js';
 import multer from 'multer';
 import fs from 'fs';
 
-console.log('Hello form multer');
 cloudinary.config({
   cloud_name: config.cloudinary_cloud_name as string,
   api_key: config.cloudinary_api_key as string,
@@ -13,7 +12,7 @@ cloudinary.config({
 export const sendImageToCloudinary = (
   imageName: string,
   path: string
-): Promise<UploadApiResponse> => {
+): Promise<Record<string, unknown>> => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(
       path,

@@ -3,6 +3,7 @@ import validateRequest from '../../middlewares/validateRequest.js';
 import { AtuhValidation } from './auth.validation.js';
 import { AuthControllers } from './auth.controller.js';
 import auth from '../../middlewares/auth.js';
+import { USER_ROLE } from '../user/user.constant.js';
 
 const router = Router();
 
@@ -14,7 +15,12 @@ router.post(
 
 router.post(
   '/change-password',
-  auth('admin', 'faculty', 'student'),
+  auth(
+    USER_ROLE.admin,
+    USER_ROLE.superAdmin,
+    USER_ROLE.faculty,
+    USER_ROLE.student
+  ),
   validateRequest(AtuhValidation.changePasswordValidationSchema),
   AuthControllers.changePassword
 );

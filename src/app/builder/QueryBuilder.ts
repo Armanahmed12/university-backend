@@ -54,7 +54,6 @@ class QueryBuilder<T> {
   fields() {
     const fields =
       (this.query?.fields as string)?.split(',')?.join(' ') || '-__v';
-    console.log(fields, 'see the fields');
     this.modelQuery = this.modelQuery.select(fields);
 
     return this;
